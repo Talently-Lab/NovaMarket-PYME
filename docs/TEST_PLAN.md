@@ -5,9 +5,9 @@
 **Rama Base:** `feature/qa-automation`
 **Versión del Documento:** 1.0.0
 **Fecha de Creación:** 16 de septiembre de 2026
-**Estado:** v1.0.1 — Borrador de trabajo | Sujeto a revisión del equipo
-**Autores:** Christian Santibaez (QA) · Agustina Fernandez Maidana (QA)
-**Revisión pendiente:** Florencia Sombra (PM) · Gisele Lorena Ortiz (PM/Coordinación)
+**Estado:** v1.0.2 — Borrador de trabajo | Sujeto a revisión del equipo
+**Autores:** Christian Santibáñez Martínez (QA) · Agustina Fernandez Maidana (QA)
+**Revisión pendiente:** Marcia Torre (PM) · Gisele Lorena Ortiz (PM)
 
 > ⚠️ Este documento está en construcción. Fue armado al inicio del Sprint 0 con la información disponible hasta la fecha. Algunos ítems todavía no tienen confirmación del equipo completo y están señalados como **[PENDIENTE CONFIRMAR]**. Cualquier cambio que se haga debe quedar registrado en el historial de abajo.
 
@@ -19,6 +19,7 @@
 |---------|-------|-------|---------|
 | 1.0.0 | 16/sep/2026 | Agustina F. · Christian S. | Primera versión del plan. Borrador inicial del Sprint 0. |
 | 1.0.1 | 16/sep/2026 | Christian S. | Revisión post-mapa mental: se incorporan los módulos reales relevados por Agustina, se marcan los ítems pendientes de confirmación del equipo y se agregan las opciones de herramientas TMS sugeridas por Gisele. |
+| 1.0.2 | 19/sep/2026 | Christian S. | Actualización de integrantes del equipo con datos oficiales confirmados: nombres completos, emails, roles reales (Florencia como Backend, Ismael Jensen y Nicolás Toloza como UX/UI, Marcia Torre como PM). |
 
 ---
 
@@ -397,7 +398,7 @@ Feature: Comunicación Frontend-Backend y estructura de rutas SPA
 | **Tipo** | Tarea |
 | **Estado** | Por Hacer |
 | **Prioridad** | Highest |
-| **Asignado** | Francisca Pérez Sucunza (UX/UI Designer) |
+| **Asignado** | Ismael Jensen · Nicolás Toloza (UX/UI) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 18/sep/26 |
 
@@ -439,7 +440,7 @@ Feature: Consistencia del sistema de diseño con la implementación
 | **Tipo** | Tarea |
 | **Estado** | En Curso |
 | **Prioridad** | Highest |
-| **Asignado** | Agustina Fernandez Maidana (QA Tester) · Christian Santibaez (QA Tester) |
+| **Asignado** | Agustina Fernandez Maidana (QA Tester) · Christian Rodrigo Santibáñez Martínez (QA Tester) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 21/sep/26 |
 
@@ -504,7 +505,7 @@ Feature: Mapa mental de cobertura de pruebas NovaMarket MVP
 | **Tipo** | Tarea |
 | **Estado** | Por Hacer |
 | **Prioridad** | Medium |
-| **Asignado** | Francisca Pérez Sucunza (UX/UI Designer) |
+| **Asignado** | Ismael Jensen · Nicolás Toloza (UX/UI) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 26/sep/26 |
 
@@ -541,7 +542,7 @@ Feature: Validación del prototipo navegable contra la implementación
 | **Tipo** | Tarea |
 | **Estado** | Por Hacer |
 | **Prioridad** | Highest |
-| **Asignado** | Lucía Avrchiarandini (Marketing/Data) |
+| **Asignado** | Lucía Chiarandini (Marketing) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 18/sep/26 |
 
@@ -578,7 +579,7 @@ Feature: Consistencia de identidad de marca en la plataforma
 | **Tipo** | Tarea |
 | **Estado** | Por Hacer |
 | **Prioridad** | Medium |
-| **Asignado** | Lucía Avrchiarandini (Marketing/Data) |
+| **Asignado** | Lucía Chiarandini (Marketing) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 22/sep/26 |
 
@@ -614,7 +615,7 @@ Feature: La UX refleja las necesidades del Buyer Persona definido
 | **Tipo** | Tarea |
 | **Estado** | Por Hacer |
 | **Prioridad** | Medium |
-| **Asignado** | Lucía Avrchiarandini (Marketing/Data) |
+| **Asignado** | Lucía Chiarandini (Marketing) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 24/sep/26 |
 
@@ -666,7 +667,7 @@ Feature: Carga y visualización del catálogo de productos semilla
 | **Tipo** | Tarea |
 | **Estado** | Por Hacer |
 | **Prioridad** | Medium |
-| **Asignado** | Christian Santibaez (QA Tester) |
+| **Asignado** | Christian Rodrigo Santibáñez Martínez (QA Tester) |
 | **Sprint** | SCRUM Sprint 0 |
 
 **Descripción técnica:** Definir formalmente los criterios de aceptación técnicos para todos los módulos del MVP y preparar los fixtures de datos de prueba (usuarios, productos, órdenes) que serán utilizados en los tests automatizados. Este documento sirve como "contrato de calidad" entre QA, Backend y Frontend.
@@ -807,16 +808,18 @@ Feature: Registro de nuevo usuario cliente
 
 ### 2.1 Integrantes del Equipo
 
-| Integrante | Usuario Jira | Rol en el Proyecto | Responsabilidades Confirmadas |
-|------------|-------------|-------------------|-------------------------------|
-| **Florencia Sombra** | florencia.sombra | Project Manager (PM) | Responsable del proyecto, coordinación general, protección de ramas, validación con PM de entregables |
-| **Gisele Lorena Ortiz** | gisele.lorena.ortiz | PM / Coordinación | Creadora y gestora del backlog en Jira, coordinación de daily meetings, vínculo entre roles, feedback y validación de entregables QA |
-| **Laura Cuenca** | laura.cuenca1 | Backend Developer | SCRUM-1 (setup Node.js), SCRUM-2 (Git), SCRUM-5 (arquitectura + DB), liderazgo técnico backend |
-| **Emilia Orioni** | emyorioni | Frontend Developer | SCRUM-6 (init React+Vite), SCRUM-7 (estructura + consumo API), implementación SPA |
-| **Francisca Pérez Sucunza** | francisca.perez | UX/UI Designer | SCRUM-8 (sistema de diseño Figma), SCRUM-10 (prototipo navegable), handoff con Frontend |
-| **Lucía Avrchiarandini** | luciaavrchiarandini | Marketing / Data | SCRUM-11 (identidad + competencia), SCRUM-12 (buyer persona), SCRUM-13 (catálogo de productos) |
-| **Agustina Fernandez Maidana** | agustina.fernandez | QA Tester | SCRUM-9 (mapa mental de pruebas)
-| **Christian Santibaez** | christian.santibanez | QA Tester | SCRUM-14 (criterios de aceptación + datos de prueba), automatización de tests |
+| Integrante | Email | Rol en el Proyecto | Responsabilidades |
+|------------|-------|-------------------|-------------------|
+| **Marcia Torre** | marciatorre.pacc@gmail.com | Project Manager | Coordinación general del proyecto, validación de entregables, aprobación de go/no-go |
+| **Gisele Lorena Ortiz** | giseleortizuriel@gmail.com | Project Manager | Gestión del backlog en Jira, coordinación de dailys, feedback y validación de entregables QA |
+| **Laura Cuenca** | laura.cuenca1@gmail.com | Backend Developer (Node.js) | Setup del servidor, arquitectura, conexión DB, endpoints REST |
+| **Florencia Alicia Sombra** | sombraflorencia097@gmail.com | Backend Developer (Node.js) | Desarrollo backend, autenticación, CRUD de productos |
+| **María Emilia Orioni** | emyorioni@gmail.com | Frontend Developer (React) | Implementación SPA, consumo de API, componentes |
+| **Ismael Jensen** | ismaeljensen08@gmail.com | Diseñador UX/UI | Sistema de diseño, wireframes, prototipo navegable |
+| **Nicolás Toloza** | nicolastoloza1989@gmail.com | Diseñador UX/UI | Sistema de diseño, wireframes, prototipo navegable |
+| **Lucía Chiarandini** | luciaavrchiarandini@gmail.com | Especialista de Marketing | Identidad de marca, buyer persona, contenido del catálogo |
+| **Agustina Fernandez Maidana** | agustinafm2018@gmail.com | QA Tester | Mapa mental de pruebas, estrategia de testing, ejecución de casos |
+| **Christian Rodrigo Santibáñez Martínez** | christiansanti.martinez@gmail.com | QA Tester | Criterios de aceptación, datos de prueba, automatización |
 
 ---
 
@@ -826,31 +829,31 @@ Basado en las fortalezas demostradas en el backlog y el rol de cada integrante e
 
 #### Módulo: Frontend (UI/UX Testing)
 - **QA Tester:** Agustina Fernandez Maidana
-- **Apoyo:** Emilia Orioni (Frontend Developer), Francisca Pérez Sucunza (UX/UI)
-- Agustina tiene la visión del flujo completo del MVP. Emilia conoce la arquitectura de los componentes React y Francisca puede validar que lo que se implementó coincide con el diseño.
+- **Apoyo:** María Emilia Orioni (Frontend), Ismael Jensen y Nicolás Toloza (UX/UI)
+- Agustina tiene la visión del flujo completo del MVP. Emilia conoce la arquitectura de los componentes React e Ismael/Nicolás pueden validar que lo implementado coincide con el diseño.
 - **Responsabilidades QA:** Tests E2E con Playwright, regresión visual, validación de responsividad móvil.
 
 #### Módulo: Backend y API (API Testing)
-- **QA Tester:** Christian Santibaez
-- **Apoyo:** Laura Cuenca (Backend)
+- **QA Tester:** Christian Rodrigo Santibáñez Martínez
+- **Apoyo:** Laura Cuenca y Florencia Sombra (Backend)
 - Christian tiene a cargo los criterios de aceptación técnicos y los contratos de API, así que es el más indicado para validarlos. Laura aporta el contexto de implementación cuando algo no está claro.
 - **Responsabilidades QA:** Tests de API con Supertest, validación de endpoints REST, pruebas de autorización JWT.
 
 #### Módulo: Base de Datos (Data Quality Testing)
-- **QA Tester:** Christian Santibaez
-- **Apoyo:** Laura Cuenca (Backend), Lucía Avrchiarandini (Data)
+- **QA Tester:** Christian Rodrigo Santibáñez Martínez
+- **Apoyo:** Laura Cuenca y Florencia Sombra (Backend), Lucía Chiarandini (Marketing)
 - Los fixtures de datos de prueba y el contenido semilla del catálogo son responsabilidad directa de Christian y Lucía, lo que facilita la coordinación para las pruebas de integridad.
 - **Responsabilidades QA:** Validación de seeds, integridad referencial en Orders, unicidad de email en usuarios.
 
 #### Módulo: CI/CD y Automatización
-- **QA Tester:** Christian Santibaez
-- **Apoyo:** Laura Cuenca (integración con el pipeline de backend)
+- **QA Tester:** Christian Rodrigo Santibáñez Martínez
+- **Apoyo:** Laura Cuenca y Florencia Sombra (integración con el pipeline de backend)
 - Christian tiene la responsabilidad técnica de automatizar los criterios de aceptación y mantener el pipeline en verde.
 - **Responsabilidades:** Configurar GitHub Actions, mantener el pipeline verde en cada PR a develop, configurar Playwright, Supertest y Jest.
 
 #### Módulo: Seguridad y Roles
 - **QA Tester:** Agustina Fernandez Maidana
-- **Apoyo:** Christian Santibaez
+- **Apoyo:** Christian Rodrigo Santibáñez Martínez
 - Los edge cases de seguridad (acceso a /admin sin ser admin, manipulación de token) fueron relevados por Agustina en el mapa mental, así que tiene el contexto para liderarlos.
 - **Responsabilidades:** Pruebas de autorización (401/403), validación de JWT, pruebas básicas de rutas protegidas.
 
@@ -863,7 +866,7 @@ Habilidades actuales del equipo QA y las brechas a cerrar para ejecutar este pla
 | Integrante | HTML/CSS/JS | React | Node.js/API | MongoDB | Git/GitHub | Postman/API Testing | Playwright/E2E | Jest/Vitest | GitHub Actions | BDD/Gherkin |
 |------------|------------|-------|-------------|---------|------------|--------------------|--------------------|-------------|----------------|-------------|
 | Agustina Fernandez | ✅ | ✅ | ✅ | ✅ | ✅ | ✅✅ | ⚠️ Brecha | ⚠️ Brecha | ⚠️ Brecha | ✅ |
-| Christian Santibaez | ✅ | ✅ | ✅ | ✅ | ✅✅ | ✅✅ | ⚠️ Brecha | ⚠️ Brecha | ⚠️ Brecha | ✅ |
+| Christian Santibáñez | ✅ | ✅ | ✅ | ✅ | ✅✅ | ✅✅ | ⚠️ Brecha | ⚠️ Brecha | ⚠️ Brecha | ✅ |
 
 **Leyenda:** ✅✅ = Dominio sólido | ✅ = Conocimiento funcional | ⚠️ Brecha = Requiere capacitación
 
@@ -2400,11 +2403,12 @@ Una historia de usuario o tarea se considera **Done** desde la perspectiva de QA
 | Rol | Nombre | Responsabilidad QA |
 |-----|--------|--------------------|
 | **QA Tester** | Agustina Fernandez Maidana | Estrategia de testing, tests E2E, escalamiento de bugs críticos |
-| **QA Tester** | Christian Santibaez | Automatización, tests de API, pipeline CI/CD, cobertura de código |
-| **PM** | Florencia Sombra | Aprobación de go/no-go, priorización de bugs con el equipo de desarrollo |
-| **PM/Coordinación** | Gisele Lorena Ortiz | Gestión del backlog en Jira, coordinación de handoffs entre roles |
+| **QA Tester** | Christian Rodrigo Santibáñez Martínez | Automatización, tests de API, pipeline CI/CD, cobertura de código |
+| **PM** | Marcia Torre | Aprobación de go/no-go, priorización de bugs con el equipo de desarrollo |
+| **PM** | Gisele Lorena Ortiz | Gestión del backlog en Jira, coordinación de handoffs entre roles |
 | **Backend** | Laura Cuenca | Resolución de bugs de API y backend, revisión de tests de Supertest |
-| **Frontend Developer** | Emilia Orioni | Resolución de bugs de UI, implementación de `data-testid` en componentes |
+| **Backend** | Florencia Alicia Sombra | Resolución de bugs de backend, soporte en autenticación y CRUD |
+| **Frontend** | María Emilia Orioni | Resolución de bugs de UI, implementación de `data-testid` en componentes |
 
 **Cómo escalar un bug según su severidad:**
 
@@ -2414,4 +2418,4 @@ Una historia de usuario o tarea se considera **Done** desde la perspectiva de QA
 
 ---
 
-*TEST_PLAN.md v1.0.1 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
+*TEST_PLAN.md v1.0.2 — NovaMarket PYME · Sprint 0 · Septiembre 2026*

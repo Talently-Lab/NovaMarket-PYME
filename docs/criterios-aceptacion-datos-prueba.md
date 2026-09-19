@@ -1,6 +1,6 @@
 # Criterios de Aceptación y Datos de Prueba — NovaMarket-PYME (SCRUM-14)
 
-**Autor:** Christian Santibáñez (QA)
+**Autor:** Christian Rodrigo Santibáñez Martínez (QA)
 **Ticket:** SCRUM-14 — En curso
 **Sprint:** SCRUM Sprint 0
 **Basado en:** TEST_PLAN.md v1.0.1 (secciones 1.2, 1.4, 3.2.4) + estado real del backlog en Jira
@@ -24,7 +24,7 @@ Formalizar los criterios de aceptación técnicos de cada tarea del Sprint 0 (SC
 ### SCRUM-2 — Agregar equipo al repo + organizar Git
 *Estado en Jira: Finalizado*
 
-1. Florencia Sombra, Emilia Orioni y Gisele Ortiz tienen acceso de colaborador efectivo al repositorio (pueden clonar y hacer push a una rama `feature/*`).
+1. Florencia Sombra, María Emilia Orioni y Gisele Ortiz tienen acceso de colaborador efectivo al repositorio (pueden clonar y hacer push a una rama `feature/*`).
 2. Las ramas `main` y `develop` existen; un push directo a `main` es rechazado por la protección de rama y requiere Pull Request aprobado.
 3. El `README.md` contiene las secciones "Instalación", "Variables de Entorno" y "Cómo ejecutar las pruebas".
 
@@ -75,7 +75,7 @@ Formalizar los criterios de aceptación técnicos de cada tarea del Sprint 0 (SC
 
 1. El mapa mental tiene un nodo central "NovaMarket MVP" con exactamente 5 ramas: AUTH, CATÁLOGO, CARRITO, CHECKOUT, ADMIN CRUD.
 2. Existen al menos 15 edge cases documentados, cada uno con su pregunta preventiva "¿Qué pasa si...?".
-3. El link público a XMind/Miro, la captura PNG y el archivo `.xmind` están adjuntos al ticket, y Gisele/Marcia validaron la versión final.
+3. El link público a XMind/Miro, la captura PNG y el archivo `.xmind` están adjuntos al ticket, y Gisele/Marcia Torre validaron la versión final.
 
 ### SCRUM-10 — Prototipo navegable
 *Estado en Jira: Por hacer*
@@ -93,7 +93,7 @@ Formalizar los criterios de aceptación técnicos de cada tarea del Sprint 0 (SC
 *Estado en Jira: Por hacer*
 
 1. Existe un buyer persona documentado que responde "¿a quién le vendemos accesorios/periféricos/gadgets?".
-2. La propuesta de valor de NovaMarket está redactada en una frase clara, entregada a Francisca para los textos del Figma.
+2. La propuesta de valor de NovaMarket está redactada en una frase clara, entregada al equipo de diseño (Ismael Jensen / Nicolás Toloza) para los textos del Figma.
 
 ### SCRUM-13 — Contenido base para el catálogo
 *Estado en Jira: Por hacer*
