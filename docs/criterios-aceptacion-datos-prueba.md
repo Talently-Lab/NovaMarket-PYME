@@ -3,7 +3,7 @@
 **Autor:** Christian Rodrigo Santibáñez Martínez (QA)
 **Ticket:** SCRUM-14 — En curso
 **Sprint:** SCRUM Sprint 0
-**Basado en:** TEST_PLAN.md v1.0.1 (secciones 1.2, 1.4, 3.2.4) + estado real del backlog en Jira
+**Basado en:** TEST_PLAN.md v1.0.4 (secciones 1.2, 1.4, 3.2.4) + estado real del backlog en Jira
 
 ---
 
@@ -18,7 +18,7 @@ Formalizar los criterios de aceptación técnicos de cada tarea del Sprint 0 (SC
 ### SCRUM-1 — Inicializar proyecto Node.js + Express (Backend)
 *Estado en Jira: Finalizado*
 
-1. El servidor levanta sin errores al ejecutar `node src/index.js`, y `GET /api/health` responde HTTP 200 con body `{"status": "OK"}`.
+1. ✅ El servidor levanta sin errores al ejecutar `node src/index.js`, y `GET /api/health` responde HTTP 200 con body `{"status": "OK", "timestamp": "..."}` — verificado con test smoke (`tests/api/health.api.test.ts` pasa en verde).
 2. Existen los directorios `/src/routes`, `/src/controllers`, `/src/models`, `/src/middlewares`, `/src/config`, y el repositorio está subido a GitHub sin el archivo `.env` commiteado.
 
 ### SCRUM-2 — Agregar equipo al repo + organizar Git
@@ -47,8 +47,8 @@ Formalizar los criterios de aceptación técnicos de cada tarea del Sprint 0 (SC
 *Confirmado: PostgreSQL vía Supabase (`pg` + connection pooling), no MongoDB Atlas.*
 
 1. Al inicializar el servidor, `connectDB()` establece la conexión al pool de Supabase sin errores; una consulta de prueba (`SELECT NOW()`) devuelve resultado sin lanzar excepción.
-2. Existe un endpoint `GET /api/health` que responde HTTP 200 con `Content-Type: application/json` y body con `status` y `timestamp` (la conexión a la DB en `db.js` es necesaria pero no suficiente — falta exponerla vía ruta HTTP).
-3. Ninguna cadena de conexión ni credencial aparece hardcodeada en el código fuente; `DATABASE_URL` se lee desde `.env`, que está listado en `.gitignore`.
+2. ✅ Existe un endpoint `GET /api/health` que responde HTTP 200 con `Content-Type: application/json` y body con `status` y `timestamp` — implementado en `src/index.js` y verificado por test smoke.
+3. ✅ Ninguna cadena de conexión ni credencial aparece hardcodeada en el código fuente; `DATABASE_URL` se lee desde `.env`, que está listado en `.gitignore`.
 
 ### SCRUM-6 — Inicializar Frontend (React + Vite)
 *Estado en Jira: Finalizado*
@@ -139,6 +139,7 @@ Basado en la sección 3.2.4 del TEST_PLAN.md. Estos fixtures son datos falsos cr
 ## 4. Pendientes antes de cerrar el documento
 
 - [x] Confirmar con Laura si la DB definitiva es PostgreSQL o MongoDB Atlas — **Resuelto: PostgreSQL vía Supabase.**
-- [ ] Definir con Laura la estrategia de aislamiento de tests para Postgres (schema separado en Supabase vs. Docker local vs. `pg-mem`).
+- [x] Estructura `/tests` creada y fixtures de usuarios disponibles en `tests/api/fixtures/users.fixture.ts`.
+- [ ] Definir con Laura/Florencia la estrategia de aislamiento de tests para Postgres (schema separado en Supabase vs. Docker local vs. `pg-mem`).
 - [ ] Completar la descripción de SCRUM-3, SCRUM-4 y SCRUM-7 en Jira para afinar sus criterios.
 - [ ] Revisión de Agustina antes de marcar SCRUM-14 como Finalizado (requisito del propio ticket).

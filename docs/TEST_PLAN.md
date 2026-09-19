@@ -5,7 +5,7 @@
 **Rama Base:** `feature/qa-automation`
 **Versión del Documento:** 1.0.0
 **Fecha de Creación:** 16 de septiembre de 2026
-**Estado:** v1.0.3 — Borrador de trabajo | Sujeto a revisión del equipo
+**Estado:** v1.0.4 — Borrador de trabajo | Sujeto a revisión del equipo
 **Autores:** Christian Santibáñez Martínez (QA) · Agustina Fernandez Maidana (QA)
 **Revisión pendiente:** Marcia Torre (PM) · Gisele Lorena Ortiz (PM)
 
@@ -21,6 +21,7 @@
 | 1.0.1 | 16/sep/2026 | Christian S. | Revisión post-mapa mental: se incorporan los módulos reales relevados por Agustina, se marcan los ítems pendientes de confirmación del equipo y se agregan las opciones de herramientas TMS sugeridas por Gisele. |
 | 1.0.2 | 19/sep/2026 | Christian S. | Actualización de integrantes del equipo con datos oficiales confirmados: nombres completos, emails, roles reales (Florencia como Backend, Ismael Jensen y Nicolás Toloza como UX/UI, Marcia Torre como PM). |
 | 1.0.3 | 19/sep/2026 | Christian S. | Se confirma PostgreSQL/Supabase como base de datos (no MongoDB). Se actualizan criterios BDD de SCRUM-5 y estrategia de fixtures en sección 3.2.4. Se agrega observación de QA sobre connectDB() en src/app.js. |
+| 1.0.4 | 19/sep/2026 | Christian S. | Semana 1 ejecutada: estructura /tests creada, Jest + Supertest + Playwright + pg-mem instalados, tsconfig.json agregado, /api/health implementado en src/index.js, test smoke pasando en verde, .gitignore actualizado. |
 
 ---
 
@@ -898,9 +899,9 @@ El principal gap del equipo QA está en el stack de automatización — Playwrig
 - Ejercicio práctico: Escribir un test que navegue a la Home de NovaMarket y verifique que el título `<h1>` contiene "NovaMarket"
 
 **Checklist de validación al final de la semana:**
-- [ ] Playwright instalado en `/tests/e2e/` del repositorio
-- [ ] Primer test E2E que pasa: navegación a la Home
-- [ ] Configuración de `playwright.config.ts` con baseURL apuntando a localhost
+- [x] Playwright instalado en `/tests/` del repositorio
+- [ ] Primer test E2E que pasa: navegación a la Home (pendiente — frontend no disponible aún)
+- [x] Configuración de `playwright.config.ts` con baseURL apuntando a localhost
 
 #### Semana 1 — Jest + Supertest para API Testing (Christian)
 
@@ -912,8 +913,8 @@ El principal gap del equipo QA está en el stack de automatización — Playwrig
 - Ejercicio práctico: Test que valida que `GET /api/health` responde 200
 
 **Checklist de validación:**
-- [ ] Jest y Supertest instalados como devDependencies
-- [ ] Primer test de API que pasa: GET /api/health → HTTP 200
+- [x] Jest y Supertest instalados como devDependencies
+- [x] Primer test de API que pasa: GET /api/health → HTTP 200
 
 #### Semana 2 — GitHub Actions CI/CD (Christian + Laura)
 
@@ -1550,13 +1551,13 @@ npm install --save-dev pg-mem
 
 #### Entregables de la Semana 1
 
-- [ ] Mapa mental SCRUM-9 creado y subido al ticket de Jira
-- [ ] Estructura `/tests` creada y commiteada en `feature/qa-setup`
-- [ ] Playwright instalado y configurado con `playwright.config.ts`
-- [ ] Jest + Supertest instalados como devDependencies
-- [ ] Primer test smoke en Playwright: `GET /` retorna 200
+- [x] Mapa mental SCRUM-9 creado y subido al ticket de Jira
+- [x] Estructura `/tests` creada y commiteada en `feature/qa-automation`
+- [x] Playwright instalado y configurado con `playwright.config.ts`
+- [x] Jest + Supertest instalados como devDependencies
+- [x] Primer test smoke pasando: GET /api/health → HTTP 200 ✅
 - [ ] Pipeline CI básico en `.github/workflows/ci.yml` ejecutando `npm test`
-- [ ] `.gitignore` actualizado con las entradas de protección de datos de test
+- [x] `.gitignore` actualizado con las entradas de protección de datos de test
 
 ---
 
@@ -2422,4 +2423,4 @@ Una historia de usuario o tarea se considera **Done** desde la perspectiva de QA
 
 ---
 
-*TEST_PLAN.md v1.0.3 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
+*TEST_PLAN.md v1.0.4 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
