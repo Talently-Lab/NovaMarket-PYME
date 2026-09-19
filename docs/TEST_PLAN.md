@@ -5,7 +5,7 @@
 **Rama Base:** `feature/qa-automation`
 **Versión del Documento:** 1.0.0
 **Fecha de Creación:** 16 de septiembre de 2026
-**Estado:** v1.0.2 — Borrador de trabajo | Sujeto a revisión del equipo
+**Estado:** v1.0.3 — Borrador de trabajo | Sujeto a revisión del equipo
 **Autores:** Christian Santibáñez Martínez (QA) · Agustina Fernandez Maidana (QA)
 **Revisión pendiente:** Marcia Torre (PM) · Gisele Lorena Ortiz (PM)
 
@@ -20,6 +20,7 @@
 | 1.0.0 | 16/sep/2026 | Agustina F. · Christian S. | Primera versión del plan. Borrador inicial del Sprint 0. |
 | 1.0.1 | 16/sep/2026 | Christian S. | Revisión post-mapa mental: se incorporan los módulos reales relevados por Agustina, se marcan los ítems pendientes de confirmación del equipo y se agregan las opciones de herramientas TMS sugeridas por Gisele. |
 | 1.0.2 | 19/sep/2026 | Christian S. | Actualización de integrantes del equipo con datos oficiales confirmados: nombres completos, emails, roles reales (Florencia como Backend, Ismael Jensen y Nicolás Toloza como UX/UI, Marcia Torre como PM). |
+| 1.0.3 | 19/sep/2026 | Christian S. | Se confirma PostgreSQL/Supabase como base de datos (no MongoDB). Se actualizan criterios BDD de SCRUM-5 y estrategia de fixtures en sección 3.2.4. Se agrega observación de QA sobre connectDB() en src/app.js. |
 
 ---
 
@@ -39,7 +40,7 @@ NovaMarket es una PYME que vende accesorios, periféricos y gadgets tecnológico
 
 Este documento define cómo vamos a probar el MVP: qué se prueba, quién lo hace, con qué herramientas y en qué orden. Cubre los módulos principales — Autenticación, Catálogo, Carrito, Checkout y Panel de Administración — y establece la estrategia de automatización que vamos a implementar progresivamente a lo largo del proyecto.
 
-**Stack del proyecto:** Node.js + Express + MongoDB Atlas · React + Vite · JWT
+**Stack del proyecto:** Node.js + Express + PostgreSQL (Supabase) · React + Vite · JWT
 **Stack de automatización:** Playwright (TypeScript) · Supertest · Jest/Vitest · GitHub Actions
 
 **Meta de cobertura:** superar el 80% en los módulos críticos al cerrar la Semana 8.
@@ -261,7 +262,7 @@ Feature: Acceso efectivo de colaboradores al repositorio
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 25/sep/26 |
 
-**Descripción técnica:** Definir si se usa PostgreSQL o MongoDB Atlas. Crear archivo `db.js` con la conexión. Crear servidor base `app.js` que levante en el puerto 3000. Documentar arquitectura MVC. Crear endpoint de prueba `GET /api/health`.
+**Descripción técnica:** ✅ Confirmado: se usa **PostgreSQL vía Supabase** (librería `pg`). Crear archivo `db.js` con conexión al pool. Crear servidor base `app.js` que levante en el puerto 3000. Documentar arquitectura MVC. Crear endpoint de prueba `GET /api/health`.
 
 **Tipos de prueba asociados:** Integration · API · Unit
 
@@ -270,13 +271,14 @@ Feature: Acceso efectivo de colaboradores al repositorio
 ```gherkin
 Feature: Conexión a base de datos y arquitectura MVC
 
-  Scenario: La conexión a MongoDB Atlas es exitosa al arrancar el servidor
-    Given que la variable DATABASE_URL en .env apunta a un cluster de MongoDB Atlas válido
+  Scenario: ✅ La conexión a PostgreSQL/Supabase es exitosa al arrancar el servidor
+    Given que la variable DATABASE_URL en .env apunta al pool de Supabase válido
     When se inicializa el servidor Node.js
-    Then la consola debe mostrar el mensaje de conexión exitosa (ej: "MongoDB connected")
-    And no debe haber errores de "MongoNetworkError" o "Authentication failed"
+    Then el pool de pg debe establecerse sin errores
+    And una consulta de prueba SELECT NOW() debe devolver resultado sin lanzar excepción
+    And no deben aparecer errores de "ECONNREFUSED" o "password authentication failed"
 
-  Scenario: El endpoint de health check responde correctamente
+  Scenario: ✅ El endpoint de health check responde correctamente (ya implementado)
     Given que el servidor está corriendo en el puerto 3000
     When se realiza una petición GET a /api/health
     Then la respuesta debe tener status HTTP 200
@@ -287,15 +289,25 @@ Feature: Conexión a base de datos y arquitectura MVC
     Given que el proyecto está inicializado
     When se revisa la estructura de carpetas
     Then los controladores solo deben contener lógica de negocio, no queries directas a DB
-    And los modelos deben definir el schema de Mongoose/Sequelize
+    And las queries SQL deben estar en los modelos o en un módulo de acceso a datos
     And las rutas solo deben mapear URLs a controladores
 
-  Scenario: La cadena de conexión nunca aparece expuesta en el código
+  Scenario: ✅ La cadena de conexión nunca aparece expuesta en el código
     Given que se realiza una búsqueda en todos los archivos .js del proyecto
-    When se buscan strings que contengan "mongodb+srv://" o contraseñas hardcodeadas
+    When se buscan strings que contengan credenciales de Supabase hardcodeadas
     Then ningún archivo de código fuente debe contener credenciales directas
-    And el archivo .env debe estar listado en .gitignore
+    And DATABASE_URL se lee desde .env, que está listado en .gitignore
 ```
+
+> ⚠️ **Observación QA — src/app.js:** `connectDB()` se llama sin `await` antes de `app.listen()`, lo que puede causar comportamiento intermitente en CI si el servidor recibe requests antes de que la conexión a Supabase esté lista. Se sugiere al equipo Backend refactorizar el arranque del servidor así:
+>
+> ```javascript
+> const startServer = async () => {
+>   await connectDB();
+>   app.listen(PORT, () => console.log(`Servidor escuchando en el puerto ${PORT}`));
+> };
+> startServer();
+> ```
 
 ---
 
@@ -1253,7 +1265,7 @@ describe('Seguridad: Rutas protegidas', () => {
 
 En el Backend (Jest):
 - Funciones de validación de datos (validators)
-- Lógica de negocio en controladores (mockeando los modelos de Mongoose)
+- Lógica de negocio en controladores (mockeando el pool de `pg`)
 - Funciones de utilería (generación de JWT, hash de passwords con bcrypt)
 - Middleware de autenticación (verificación del token)
 
@@ -1348,23 +1360,25 @@ describe('Utilidades del Carrito — Cálculo de precios', () => {
 **Estrategia por capa:**
 
 **Capa Unit (Jest/Vitest):**
-- Se usan **Mocks** de Jest (`jest.mock()`) para reemplazar módulos de base de datos (Mongoose models) con implementaciones simuladas.
-- Ningún test unitario hace conexión real a MongoDB.
+- Se usa `jest.mock()` para reemplazar el módulo del pool de `pg` con una implementación simulada. Ningún test unitario hace conexión real a la base de datos.
 - Los mocks se resetean entre cada test con `jest.resetAllMocks()` en el `afterEach`.
 
 ```typescript
-// Ejemplo de mock de Mongoose en test unitario
-jest.mock('../../src/models/User.model', () => ({
-  findOne: jest.fn(),
-  create: jest.fn(),
-  save: jest.fn(),
+// Ejemplo de mock del pool de pg en test unitario
+jest.mock('../../src/config/db', () => ({
+  query: jest.fn(),
 }));
 ```
 
 **Capa Integration (Supertest):**
-- Se usa una **base de datos de test aislada**: `mongodb://localhost:27017/novamarket_test` (o una instancia de MongoDB en memoria con `mongodb-memory-server`).
-- La base de datos de test se limpia completamente antes de cada suite con `beforeAll` / `afterAll`.
-- Los **fixtures** de datos son objetos TypeScript estáticos en `/tests/api/fixtures/`:
+- Se usa una **base de datos de test aislada** para no tocar los datos de desarrollo. Las opciones en evaluación con el equipo Backend son:
+  - **Schema separado en Supabase** (`novamarket_test`): misma instancia, schema aislado. Fácil de configurar, no requiere infraestructura adicional.
+  - **`pg-mem`**: simula Postgres completamente en memoria, sin red. Ideal para CI rápido y sin dependencias externas.
+  - **Docker local**: instancia de Postgres real en contenedor. Más fiel a producción pero requiere Docker en el entorno de CI.
+- La base de datos de test se limpia antes de cada suite con `BEGIN`/`ROLLBACK` por transacción o con `TRUNCATE` en `beforeEach`/`afterEach`.
+- Los **fixtures** de datos son objetos estáticos en `/tests/api/fixtures/`:
+
+> ⚠️ **Pendiente de decisión con el equipo Backend (Laura / Florencia):** confirmar qué estrategia de aislamiento usar — Supabase schema separado, `pg-mem` o Docker local — antes de implementar los tests de integración.
 
 ```typescript
 // tests/api/fixtures/users.fixture.ts
@@ -1504,8 +1518,8 @@ npm install --save-dev jest @types/jest ts-jest supertest @types/supertest
 # Playwright (desde la raíz del proyecto o una carpeta /tests dedicada)
 npm init playwright@latest tests -- --quiet --browser chromium --browser firefox --lang ts
 
-# mongodb-memory-server para tests de integración aislados
-npm install --save-dev mongodb-memory-server
+# pg-mem para tests de integración aislados (o schema separado en Supabase — pendiente de decisión)
+npm install --save-dev pg-mem
 ```
 
 #### Configuración de Jest (backend)
@@ -1605,7 +1619,7 @@ git log --oneline feature/qa-automation -5
 1. **Configurar Postman** con una colección específica para la API de NovaMarket.
 2. **Configurar el Tracker de Bugs** (tabla en Jira o Google Sheets) con el formato estándar.
 3. **Actualizar los Test Cases** en base a los diseños de alta fidelidad entregados por UX/UI en el handoff.
-4. **Configurar `mongodb-memory-server`** para los tests de integración aislados.
+4. **Configurar la estrategia de aislamiento de tests para PostgreSQL** (`pg-mem` o schema separado en Supabase — pendiente de decisión con el equipo Backend).
 5. **Ejecutar manualmente los primeros tests** del módulo de Auth contra el backend en desarrollo.
 
 #### Configuración de la Colección Postman
@@ -1653,7 +1667,7 @@ BUG-ID | Módulo | Descripción | Pasos para Reproducir | Resultado Actual | Res
 - [ ] Colección Postman `NovaMarket API vMVP` creada con todos los requests documentados
 - [ ] Tracker de Bugs configurado en Jira o Google Sheets y compartido con el equipo
 - [ ] Variables de entorno en Postman configuradas: `baseUrl`, `authToken`, `adminToken`
-- [ ] Tests de integración de API con Supertest ejecutando contra `mongodb-memory-server`
+- [ ] Tests de integración de API con Supertest ejecutando contra base de datos de test aislada (pg-mem o Supabase schema separado)
 
 ---
 
@@ -2051,16 +2065,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
 
-    services:
-      mongodb:
-        image: mongo:7.0
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    # Nota: el service de base de datos se define aquí cuando se confirme
+    # la estrategia de aislamiento (pg-mem no requiere service externo;
+    # Supabase schema separado usa la DATABASE_URL del secret de CI).
+    # ⚠️ Pendiente de decisión con el equipo Backend antes de activar este job.
 
     steps:
       - name: Checkout del repositorio
@@ -2078,7 +2086,7 @@ jobs:
       - name: Ejecutar tests unitarios y de API con cobertura
         run: npm run test:coverage
         env:
-          DATABASE_URL: mongodb://localhost:27017/novamarket_test
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
           JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
           NODE_ENV: test
           PORT: 3001
@@ -2102,11 +2110,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-and-api-tests
 
-    services:
-      mongodb:
-        image: mongo:7.0
-        ports:
-          - 27017:27017
+    # Service de base de datos pendiente de definir según estrategia de aislamiento acordada con Backend.
 
     steps:
       - name: Checkout del repositorio
@@ -2131,7 +2135,7 @@ jobs:
       - name: Sembrar base de datos de test con fixtures
         run: npm run db:seed:test
         env:
-          DATABASE_URL: mongodb://localhost:27017/novamarket_e2e
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
           JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
           NODE_ENV: test
 
@@ -2139,7 +2143,7 @@ jobs:
         run: npx playwright test
         env:
           BASE_URL: http://localhost:5173
-          DATABASE_URL: mongodb://localhost:27017/novamarket_e2e
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
           JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
           NODE_ENV: test
 
@@ -2418,4 +2422,4 @@ Una historia de usuario o tarea se considera **Done** desde la perspectiva de QA
 
 ---
 
-*TEST_PLAN.md v1.0.2 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
+*TEST_PLAN.md v1.0.3 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
