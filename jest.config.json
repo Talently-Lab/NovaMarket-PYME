@@ -1,0 +1,25 @@
+{
+  "testEnvironment": "node",
+  "roots": [
+    "<rootDir>/tests/api",
+    "<rootDir>/tests/unit"
+  ],
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "testMatch": [
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "collectCoverageFrom": [
+    "src/**/*.js",
+    "!src/index.js"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "lines": 80
+    }
+  },
+  "coverageReporters": ["html", "lcov", "text-summary"],
+  "coverageDirectory": "tests/reports/coverage"
+}
