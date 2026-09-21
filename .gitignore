@@ -10,3 +10,4 @@ playwright-report/
 coverage/
 tests/e2e/fixtures/.auth/
 *.lcov
+tests/security/
