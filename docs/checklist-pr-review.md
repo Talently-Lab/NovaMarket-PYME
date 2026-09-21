@@ -1,5 +1,5 @@
 # Checklist de PR Review — NovaMarket-PYME
-**QA Automation:** Christian Santibáñez · Basado en `TEST_PLAN.md` v1.0.4 y `criterios-aceptacion-datos-prueba.md` (SCRUM-14)
+**QA Automation:** Christian Santibáñez · Basado en `TEST_PLAN.md` v1.0.5 y `criterios-aceptacion-datos-prueba.md` (SCRUM-14)
 
 > Copiar y pegar como comentario en cada Pull Request antes de aprobar merge a `develop`.
 
@@ -23,10 +23,16 @@
 - [ ] Si el PR toca Órdenes, contempla los 3 casos: payload válido, producto inexistente (404), carrito vacío (400)
 
 ## 4. CI/CD (GitHub Actions)
-- [ ] El pipeline completo pasa en verde: `lint` → `unit-and-api-tests` → `e2e-tests`
-- [ ] `npm run lint` y `type-check` sin errores
+- [ ] El pipeline completo pasa en verde: `lint` → `unit-and-api-tests` *(el job `e2e-tests` está deshabilitado — ver nota abajo)*
+- [ ] `npm run lint` y `type-check` sin errores *(⚠️ estos scripts aún no existen en `package.json` — los pasos están comentados en `ci.yml` hasta que se instale ESLint)*
 - [ ] Si el job de tests de integración usa DB de test, no apunta a la base de desarrollo compartida (schema aislado / pg-mem — **verificar cuál se acordó finalmente con Backend**, según nota pendiente en el doc)
 - [ ] No se agregaron secretos ni URLs de conexión directamente en `.yml` (deben ir en GitHub Secrets)
+
+> ⚠️ **Estado actual del pipeline (`.github/workflows/ci.yml`):**
+> - Job `lint`: activo pero sin pasos reales de ESLint/type-check todavía (solo valida instalación de dependencias).
+> - Job `unit-and-api-tests`: activo — corre `npm run test:coverage`.
+> - Job `e2e-tests`: **comentado** — se activa cuando el frontend esté disponible en `/client`, exista `npm run db:seed:test` y se resuelva la estrategia de DB.
+> - Scripts faltantes en `package.json`: `lint` y `type-check`.
 
 ## 5. Seguridad (Política Zero-Trace, sección 5.3)
 - [ ] `.env` no está en el commit (`git status | grep ".env"` limpio)

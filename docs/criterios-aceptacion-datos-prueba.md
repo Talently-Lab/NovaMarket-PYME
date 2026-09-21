@@ -1,7 +1,7 @@
 # Criterios de Aceptación y Datos de Prueba — NovaMarket-PYME (SCRUM-14)
 
 **Autor:** Christian Rodrigo Santibáñez Martínez (QA)
-**Ticket:** SCRUM-14 — En curso
+**Ticket:** SCRUM-14 — En revisión
 **Sprint:** SCRUM Sprint 0
 **Basado en:** TEST_PLAN.md v1.0.4 (secciones 1.2, 1.4, 3.2.4) + estado real del backlog en Jira
 
@@ -84,7 +84,7 @@ Formalizar los criterios de aceptación técnicos de cada tarea del Sprint 0 (SC
 2. Existen frames específicos para los estados de error: carrito vacío, producto no encontrado (404) y login con credenciales incorrectas.
 
 ### SCRUM-11 — Identidad y análisis de competencia
-*Estado en Jira: Por hacer*
+*Estado en Jira: Finalizado ✅*
 
 1. El documento en Notion incluye el moodboard de al menos 3 e-commerce de referencia con capturas.
 2. El tono de comunicación de NovaMarket queda definido explícitamente (ej. juvenil/tech/gamer/profesional) y documentado.

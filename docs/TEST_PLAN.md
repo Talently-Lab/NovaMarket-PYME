@@ -5,7 +5,7 @@
 **Rama Base:** `feature/qa-automation`
 **Versión del Documento:** 1.0.0
 **Fecha de Creación:** 16 de septiembre de 2026
-**Estado:** v1.0.4 — Borrador de trabajo | Sujeto a revisión del equipo
+**Estado:** v1.0.5 — Borrador de trabajo | Sujeto a revisión del equipo
 **Autores:** Christian Santibáñez Martínez (QA) · Agustina Fernandez Maidana (QA)
 **Revisión pendiente:** Marcia Torre (PM) · Gisele Lorena Ortiz (PM)
 
@@ -22,6 +22,7 @@
 | 1.0.2 | 19/sep/2026 | Christian S. | Actualización de integrantes del equipo con datos oficiales confirmados: nombres completos, emails, roles reales (Florencia como Backend, Ismael Jensen y Nicolás Toloza como UX/UI, Marcia Torre como PM). |
 | 1.0.3 | 19/sep/2026 | Christian S. | Se confirma PostgreSQL/Supabase como base de datos (no MongoDB). Se actualizan criterios BDD de SCRUM-5 y estrategia de fixtures en sección 3.2.4. Se agrega observación de QA sobre connectDB() en src/app.js. |
 | 1.0.4 | 19/sep/2026 | Christian S. | Semana 1 ejecutada: estructura /tests creada, Jest + Supertest + Playwright + pg-mem instalados, tsconfig.json agregado, /api/health implementado en src/index.js, test smoke pasando en verde, .gitignore actualizado. |
+| 1.0.5 | 21/sep/2026 | Christian S. | Sincronización con estado real del tablero Jira (verificado via MCP Atlassian): 7 estados actualizados en sección 1.2, 2 en criterios-aceptacion-datos-prueba.md, notas de CI/CD en checklist-pr-review.md. |
 
 ---
 
@@ -93,7 +94,7 @@ A continuación se detalla cada una de las 14 tareas del Sprint 0 con su mapeo c
 |-------|---------|
 | **Clave** | SCRUM-1 |
 | **Tipo** | Tarea |
-| **Estado** | En Revisión |
+| **Estado** | Finalizado ✅ |
 | **Prioridad** | Highest |
 | **Asignado** | Laura Cuenca (Backend) |
 | **Sprint** | SCRUM Sprint 0 |
@@ -137,7 +138,7 @@ Feature: Inicialización del servidor Express
 |-------|---------|
 | **Clave** | SCRUM-2 |
 | **Tipo** | Historia de Usuario |
-| **Estado** | En Revisión |
+| **Estado** | Finalizado ✅ |
 | **Prioridad** | Highest |
 | **Asignado** | Laura Cuenca (Backend) |
 | **Sprint** | SCRUM Sprint 0 |
@@ -257,7 +258,7 @@ Feature: Acceso efectivo de colaboradores al repositorio
 |-------|---------|
 | **Clave** | SCRUM-5 |
 | **Tipo** | Tarea |
-| **Estado** | En Curso |
+| **Estado** | Finalizado ✅ |
 | **Prioridad** | Medium |
 | **Asignado** | Laura Cuenca (Backend) |
 | **Sprint** | SCRUM Sprint 0 |
@@ -318,9 +319,9 @@ Feature: Conexión a base de datos y arquitectura MVC
 |-------|---------|
 | **Clave** | SCRUM-6 |
 | **Tipo** | Tarea |
-| **Estado** | En Revisión |
+| **Estado** | Finalizado ✅ |
 | **Prioridad** | Medium |
-| **Asignado** | Emilia Orioni (Frontend Developer) |
+| **Asignado** | María Emilia Orioni (Frontend) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 16/sep/26 |
 
@@ -361,9 +362,9 @@ Feature: Inicialización del proyecto Frontend con React + Vite
 |-------|---------|
 | **Clave** | SCRUM-7 |
 | **Tipo** | Tarea |
-| **Estado** | Por Hacer |
+| **Estado** | En Curso |
 | **Prioridad** | High |
-| **Asignado** | Emilia Orioni (Frontend Developer) |
+| **Asignado** | María Emilia Orioni (Frontend) |
 | **Sprint** | SCRUM Sprint 0 |
 | **Fecha límite** | 18/sep/26 |
 
@@ -451,7 +452,7 @@ Feature: Consistencia del sistema de diseño con la implementación
 |-------|---------|
 | **Clave** | SCRUM-9 |
 | **Tipo** | Tarea |
-| **Estado** | En Curso |
+| **Estado** | En Revisión |
 | **Prioridad** | Highest |
 | **Asignado** | Agustina Fernandez Maidana (QA Tester) · Christian Rodrigo Santibáñez Martínez (QA Tester) |
 | **Sprint** | SCRUM Sprint 0 |
@@ -553,7 +554,7 @@ Feature: Validación del prototipo navegable contra la implementación
 |-------|---------|
 | **Clave** | SCRUM-11 |
 | **Tipo** | Tarea |
-| **Estado** | Por Hacer |
+| **Estado** | Finalizado ✅ |
 | **Prioridad** | Highest |
 | **Asignado** | Lucía Chiarandini (Marketing) |
 | **Sprint** | SCRUM Sprint 0 |
@@ -678,7 +679,7 @@ Feature: Carga y visualización del catálogo de productos semilla
 |-------|---------|
 | **Clave** | SCRUM-14 |
 | **Tipo** | Tarea |
-| **Estado** | Por Hacer |
+| **Estado** | En Revisión |
 | **Prioridad** | Medium |
 | **Asignado** | Christian Rodrigo Santibáñez Martínez (QA Tester) |
 | **Sprint** | SCRUM Sprint 0 |
@@ -2423,4 +2424,4 @@ Una historia de usuario o tarea se considera **Done** desde la perspectiva de QA
 
 ---
 
-*TEST_PLAN.md v1.0.4 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
+*TEST_PLAN.md v1.0.5 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
