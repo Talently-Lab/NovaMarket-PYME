@@ -2,7 +2,8 @@
   "testEnvironment": "node",
   "roots": [
     "<rootDir>/tests/api",
-    "<rootDir>/tests/unit"
+    "<rootDir>/tests/unit",
+    "<rootDir>/tests/security"
   ],
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
