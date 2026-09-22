@@ -5,7 +5,7 @@
 **Rama Base:** `feature/qa-automation`
 **Versión del Documento:** 1.0.0
 **Fecha de Creación:** 16 de septiembre de 2026
-**Estado:** v1.0.5 — Borrador de trabajo | Sujeto a revisión del equipo
+**Estado:** v1.0.6 — Borrador de trabajo | Sujeto a revisión del equipo
 **Autores:** Christian Santibáñez Martínez (QA) · Agustina Fernandez Maidana (QA)
 **Revisión pendiente:** Marcia Torre (PM) · Gisele Lorena Ortiz (PM)
 
@@ -23,6 +23,7 @@
 | 1.0.3 | 19/sep/2026 | Christian S. | Se confirma PostgreSQL/Supabase como base de datos (no MongoDB). Se actualizan criterios BDD de SCRUM-5 y estrategia de fixtures en sección 3.2.4. Se agrega observación de QA sobre connectDB() en src/app.js. |
 | 1.0.4 | 19/sep/2026 | Christian S. | Semana 1 ejecutada: estructura /tests creada, Jest + Supertest + Playwright + pg-mem instalados, tsconfig.json agregado, /api/health implementado en src/index.js, test smoke pasando en verde, .gitignore actualizado. |
 | 1.0.5 | 21/sep/2026 | Christian S. | Sincronización con estado real del tablero Jira (verificado via MCP Atlassian): 7 estados actualizados en sección 1.2, 2 en criterios-aceptacion-datos-prueba.md, notas de CI/CD en checklist-pr-review.md. |
+| 1.0.6 | 21/sep/2026 | Christian S. | Comparación del User Flow de Figma (MCP Figma) contra los TCs del plan: se agregan 7 nuevos escenarios BDD (TC011, TC012b, TC016b, TC032b, TC032c, TC039, TC040) y sus entradas en la Regression Checklist. |
 
 ---
 
@@ -814,6 +815,49 @@ Feature: Registro de nuevo usuario cliente
     Then la API debe responder HTTP 200 con JWT
     And el JWT debe contener el campo role: "admin" en el payload decodificado
     And el usuario debe ver el acceso al panel de administración en el Navbar
+
+  Scenario: TC011 - Catálogo - Búsqueda por texto libre
+    Given que el usuario está en la página del catálogo
+    When escribe un término en la barra de búsqueda (ej: "teclado")
+    Then los resultados deben mostrar solo productos cuyo nombre o descripción contengan el término
+    And si no hay resultados debe mostrarse un mensaje del tipo "No encontramos productos para tu búsqueda"
+
+  Scenario: TC012b - Catálogo - Comparar productos
+    Given que el usuario está viendo el catálogo con al menos 2 productos disponibles
+    When selecciona la opción "Comparar alternativas" disponible en el flujo
+    Then debe poder ver dos o más productos lado a lado con sus características comparadas
+    And debe existir una opción para volver al catálogo sin perder el estado anterior
+
+  Scenario: TC016b - Catálogo - Evaluar alternativas relacionadas desde el detalle
+    Given que el usuario está en la página de detalle de un producto
+    When hace scroll hacia abajo o interactúa con la sección de alternativas
+    Then debe ver productos relacionados o similares al que está viendo
+    And al hacer clic en uno debe navegar al detalle de ese producto
+
+  Scenario: TC032b - Checkout - Pantalla de Finalizar post-confirmación
+    Given que el usuario completó el checkout y ve la pantalla de "Pedido confirmado"
+    When visualiza el número y resumen del pedido
+    And hace clic en el botón "Finalizar"
+    Then debe ser redirigido a la página principal o al catálogo
+    And el carrito debe quedar vacío después de finalizar
+
+  Scenario: TC032c - Checkout - "¿Continuar comprando?" → No (ir directo a Checkout)
+    Given que el usuario tiene productos en el carrito y está en la vista de carrito
+    When responde "No" a la opción de continuar comprando
+    Then debe ser redirigido directamente a la pantalla de Checkout
+    And los productos del carrito deben seguir presentes
+
+  Scenario: TC039 - Admin - Ver listado de pedidos de clientes
+    Given que el administrador está autenticado y en el Dashboard
+    When navega a la sección "Pedidos"
+    Then debe ver un listado de los pedidos realizados por clientes
+    And cada pedido debe mostrar al menos: número de orden, estado y datos básicos del cliente
+
+  Scenario: TC040 - Admin - Ver detalle de un pedido específico
+    Given que el administrador está en el listado de pedidos
+    When selecciona un pedido de la lista
+    Then debe ver la información básica del pedido: productos, cantidades, total y datos del cliente
+    And debe poder volver al listado sin perder el estado de la página
 ```
 
 ---
@@ -1877,6 +1921,9 @@ MÓDULO CATÁLOGO
 [ ] TC018 - Imagen rota → placeholder visible         [PASS/FAIL]
 [ ] TC019 - GET /api/products → 200 + array           [PASS/FAIL]
 [ ] TC020 - GET /api/products/:id válido → 200        [PASS/FAIL]
+[ ] TC021b - Búsqueda por texto libre                  [PASS/FAIL]
+[ ] TC022b - Comparar productos                        [PASS/FAIL]
+[ ] TC023b - Evaluar alternativas en detalle           [PASS/FAIL]
 
 MÓDULO CARRITO
 [ ] TC021 - Agregar producto en 2 clics               [PASS/FAIL]
@@ -1893,6 +1940,8 @@ MÓDULO CHECKOUT
 [ ] TC030 - Checkout con carrito vacío → redirect     [PASS/FAIL]
 [ ] TC031 - Campos obligatorios vacíos → validación   [PASS/FAIL]
 [ ] TC032 - POST /api/orders producto inexistente     [PASS/FAIL]
+[ ] TC032b - Finalizar post-confirmación               [PASS/FAIL]
+[ ] TC032c - Continuar comprando → No → Checkout       [PASS/FAIL]
 
 MÓDULO ADMIN CRUD
 [ ] TC033 - Crear producto nuevo                      [PASS/FAIL]
@@ -1901,6 +1950,8 @@ MÓDULO ADMIN CRUD
 [ ] TC036 - Acceso como usuario normal → 403          [PASS/FAIL]
 [ ] TC037 - POST /api/products sin token → 401        [PASS/FAIL]
 [ ] TC038 - POST /api/products user normal → 403      [PASS/FAIL]
+[ ] TC039 - Admin ver listado de pedidos               [PASS/FAIL]
+[ ] TC040 - Admin ver detalle de un pedido             [PASS/FAIL]
 ```
 
 #### Reporte Ejecutivo — Formato estándar
@@ -2424,4 +2475,4 @@ Una historia de usuario o tarea se considera **Done** desde la perspectiva de QA
 
 ---
 
-*TEST_PLAN.md v1.0.5 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
+*TEST_PLAN.md v1.0.6 — NovaMarket PYME · Sprint 0 · Septiembre 2026*
